@@ -19,7 +19,7 @@ class CryptoListViewModel: ObservableObject {
             print("Invalid URL") // Handle the case where the URL is invalid
             return
         }
-
+//wait
         webService.getData(url: url) { result in
             DispatchQueue.main.async { // Update UI on the main thread
                 switch result {
