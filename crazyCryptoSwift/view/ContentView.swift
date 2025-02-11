@@ -22,9 +22,17 @@ struct ContentView: View {
                     Text(data.currency).font(.title3).foregroundStyle(.blue).frame(maxWidth: .infinity, alignment: .leading)
                     Text(data.price).foregroundStyle(.yellow)
                 }
-            }.navigationTitle("Crypto List")
-        }.onAppear(){
-            self.viewModel.fetchData()
+            }.toolbar(content: {
+                Button{
+                    Task.init {
+                        await viewModel.fetchData()
+                    }
+                } label: {
+                    Text("Refresh")
+                }
+            }).navigationTitle("Crypto List")
+        }.task {
+            await viewModel.fetchData()
         }
     }
 }

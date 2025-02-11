@@ -12,6 +12,15 @@ import Foundation
     
 
     class WebService {
+        
+        func getDataa(url: URL) async throws -> [CryptoModel] {
+           let (data , _ ) = try! await URLSession.shared.data(from: url)
+            
+            let curencies = try JSONDecoder().decode([CryptoModel].self, from: data)
+            
+            return curencies
+        }
+        
 
         func getData(url: URL, completion: @escaping (Result<[CryptoModel], HandelerError>) -> Void) {
             URLSession.shared.dataTask(with: url) { data, response, error in
